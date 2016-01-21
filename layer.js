@@ -18,14 +18,14 @@ if (_.has(Package, 'iron:router')) {
 }
 
 /**
- * Check if uses flow router
+ * Check if uses flow router or it's extension with ssr support
  */
-if (_.has(Package, 'kadira:flow-router')) {
+if (_.has(Package, 'kadira:flow-router') || _.has(Package, 'kadira:flow-router-ssr')) {
   RouterLayer.router = 'flow-router';
   if (!_.has(Package, 'kadira:blaze-layout')) {
     throw new Meteor.Error('router-layer', 'If you use kadira:flow-router you must add kadira:blaze-layout');
   }
-  RouterLayer.flowRouter = Package['kadira:flow-router'].FlowRouter;
+  RouterLayer.flowRouter = Package['kadira:flow-router'] ? Package['kadira:flow-router'].FlowRouter : Package['kadira:flow-router-ssr'].FlowRouter;
   RouterLayer.blazeLayout = Package['kadira:blaze-layout'].BlazeLayout;
 }
 
